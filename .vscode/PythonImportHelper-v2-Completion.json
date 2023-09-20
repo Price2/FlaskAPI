@@ -1,0 +1,271 @@
+[
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "db",
+        "description": "db",
+        "isExtraImport": true,
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "Category",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Product",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "category_bp",
+        "importPath": "routers.category",
+        "description": "routers.category",
+        "isExtraImport": true,
+        "detail": "routers.category",
+        "documentation": {}
+    },
+    {
+        "label": "product_bp",
+        "importPath": "routers.product",
+        "description": "routers.product",
+        "isExtraImport": true,
+        "detail": "routers.product",
+        "documentation": {}
+    },
+    {
+        "label": "SerializerMixin",
+        "importPath": "sqlalchemy_serializer",
+        "description": "sqlalchemy_serializer",
+        "isExtraImport": true,
+        "detail": "sqlalchemy_serializer",
+        "documentation": {}
+    },
+    {
+        "label": "add_category",
+        "kind": 2,
+        "importPath": "routers.category",
+        "description": "routers.category",
+        "peekOfCode": "def add_category():\n    data = request.json\n    name = data.get('name')\n    if not name:\n        return jsonify({\"error\": \"Name is required\"}), 400\n    new_category = Category(name=name)\n    db.session.add(new_category)\n    db.session.commit()\n    db.session.refresh(new_category)\n    return jsonify({\"success\": True, \"results\": new_category.to_dict()}), 201",
+        "detail": "routers.category",
+        "documentation": {}
+    },
+    {
+        "label": "get_categories",
+        "kind": 2,
+        "importPath": "routers.category",
+        "description": "routers.category",
+        "peekOfCode": "def get_categories():\n    id = request.args.get('id')\n    name = request.args.get('name')\n    query = Category.query\n    if id:\n        query = query.filter_by(id=id)\n    if name:\n        query = query.filter_by(name=name)\n    results = query.all()\n    serialized_results = [category.to_dict() for category in results]",
+        "detail": "routers.category",
+        "documentation": {}
+    },
+    {
+        "label": "category_bp",
+        "kind": 5,
+        "importPath": "routers.category",
+        "description": "routers.category",
+        "peekOfCode": "category_bp = Blueprint('category_bp', __name__, url_prefix='/api/categories')\n@category_bp.route('/', methods=['POST'])\ndef add_category():\n    data = request.json\n    name = data.get('name')\n    if not name:\n        return jsonify({\"error\": \"Name is required\"}), 400\n    new_category = Category(name=name)\n    db.session.add(new_category)\n    db.session.commit()",
+        "detail": "routers.category",
+        "documentation": {}
+    },
+    {
+        "label": "get_products",
+        "kind": 2,
+        "importPath": "routers.product",
+        "description": "routers.product",
+        "peekOfCode": "def get_products():\n    name = request.args.get('name')\n    price = request.args.get('price', type=int)\n    quantity = request.args.get('quantity', type=int)\n    category_id = request.args.get('category_id', type=int)\n    query = Product.query\n    if name:\n        query = query.filter_by(name=name)\n    if price is not None:\n        query = query.filter_by(price=price)",
+        "detail": "routers.product",
+        "documentation": {}
+    },
+    {
+        "label": "product_by_id",
+        "kind": 2,
+        "importPath": "routers.product",
+        "description": "routers.product",
+        "peekOfCode": "def product_by_id(id):\n    product = Product.query.get(id)\n    if product:\n        return jsonify({'success': True, 'results': product.to_dict()})\n    else:\n        return jsonify({\"success\": False, \"results\": {}, \"message\": f\"No product with id={id}\"}), 404\n@product_bp.route('/', methods=['POST'])\ndef create_product():\n    data = request.json\n    try:",
+        "detail": "routers.product",
+        "documentation": {}
+    },
+    {
+        "label": "create_product",
+        "kind": 2,
+        "importPath": "routers.product",
+        "description": "routers.product",
+        "peekOfCode": "def create_product():\n    data = request.json\n    try:\n        new_product = Product(\n            name=data['name'],\n            price=data['price'],\n            quantity=data['quantity'],\n            imgURL=data.get('imgURL'),\n            category_id=data['category_id']\n        )",
+        "detail": "routers.product",
+        "documentation": {}
+    },
+    {
+        "label": "update_product",
+        "kind": 2,
+        "importPath": "routers.product",
+        "description": "routers.product",
+        "peekOfCode": "def update_product(id):\n    product = Product.query.get(id)\n    if product:\n        data = request.json\n        product.name = data['name']\n        product.price = data['price']\n        product.quantity = data['quantity']\n        product.imgURL = data.get('imgURL')\n        product.category_id = data['category_id']\n        try:",
+        "detail": "routers.product",
+        "documentation": {}
+    },
+    {
+        "label": "product_bp",
+        "kind": 5,
+        "importPath": "routers.product",
+        "description": "routers.product",
+        "peekOfCode": "product_bp = Blueprint('product_bp', __name__, url_prefix='/api/products')\n@product_bp.route('/', methods=['GET'])\ndef get_products():\n    name = request.args.get('name')\n    price = request.args.get('price', type=int)\n    quantity = request.args.get('quantity', type=int)\n    category_id = request.args.get('category_id', type=int)\n    query = Product.query\n    if name:\n        query = query.filter_by(name=name)",
+        "detail": "routers.product",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "db",
+        "description": "db",
+        "peekOfCode": "db = SQLAlchemy()",
+        "detail": "db",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'\ndb.init_app(app)\napp.register_blueprint(category_bp)\napp.register_blueprint(product_bp)\nif __name__ == '__main__':\n    with app.app_context():\n        db.create_all()\n    app.run(debug=True)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SQLALCHEMY_DATABASE_URI']",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'\ndb.init_app(app)\napp.register_blueprint(category_bp)\napp.register_blueprint(product_bp)\nif __name__ == '__main__':\n    with app.app_context():\n        db.create_all()\n    app.run(debug=True)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "Category",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Category(db.Model, SerializerMixin):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(100), nullable=False)\n    products = db.relationship('Product', back_populates='category', lazy=True)\n    serialize_rules = ('-products.category',)  # Exclude products' category from serialization\nclass Product(db.Model, SerializerMixin):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(100), nullable=False)\n    price = db.Column(db.Integer, nullable=False)\n    quantity = db.Column(db.Integer, nullable=False)",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Product",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Product(db.Model, SerializerMixin):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(100), nullable=False)\n    price = db.Column(db.Integer, nullable=False)\n    quantity = db.Column(db.Integer, nullable=False)\n    imgURL = db.Column(db.String(255))\n    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)\n    category = db.relationship('Category', back_populates='products')\n    serialize_rules = ('-category.products',)  # Exclude category of products from serialization",
+        "detail": "models",
+        "documentation": {}
+    }
+]
