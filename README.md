@@ -71,8 +71,7 @@ Configure your database connection in the db.py file.
 
 Start the Flask application:
 
-bash
-Copy code
+
 python main.py
 Usage
 You can use tools like Postman to interact with the API. Here are some example requests:
@@ -91,8 +90,7 @@ Create a Product
 POST /api/products
 Create a new product by sending a JSON request body:
 
-json
-Copy code
+
 {
   "name": "Product Name",
   "price": 100,
@@ -114,8 +112,7 @@ Create a Category
 POST /api/categories
 Create a new category by sending a JSON request body:
 
-json
-Copy code
+
 {
   "name": "Category Name"
 }
